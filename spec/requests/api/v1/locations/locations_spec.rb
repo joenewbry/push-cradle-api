@@ -19,7 +19,7 @@ describe 'POST /v1/locations' do
     set_headers(device_token)
 
     location = Location.last
-    expect(response_json).to eq({ 'status' => 'success', "message"=>"All locations saved" })
+    expect(response_json).to eq({ 'status' => 'success', "message"=>"All locations saved", "objects_saved"=>["AE976199-516A-4832-BD1F-3FAAAE34F85F"] })
     expect(location.latitude).to eq 1.0
     expect(location.longitude).to eq 1.0
     expect(location.created_at.to_i).to eq date.to_i

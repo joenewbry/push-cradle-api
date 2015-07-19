@@ -5,14 +5,17 @@ class Api::V1::LocationsController <  ApiController
   def create
     locations = params[:locations]
     if locations && locations.count > 0
+      location_ids = []
       locations.each do |location|
         @location = Location.new(event_params(location))
 
         # probably a more accurate way to save this but good for now
         @location.saved_at = Time.zone.now
-        if not @location.save
+        if @location.save
+          location_ids << @location.unique_id
+        else
           render json: {
-            message: 'Validation Failed',
+            message: "we didn't get all inputs we wanted",
             errors: @location.errors.full_messages
           }, status: 422
           return
@@ -21,11 +24,13 @@ class Api::V1::LocationsController <  ApiController
 
       render json: {
         status: "success",
-        message: "All locations saved"
+        message: "All locations saved",
+        objects_saved: location_ids
       }, status: 200
     else
       render json: {
-        message: 'No Locations Found'
+        message: 'No Locations Found',
+        errors: "No location found"
       }, status: 422
     end
 
