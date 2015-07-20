@@ -12,6 +12,8 @@ class Api::V1::LocationsController <  ApiController
         # probably a more accurate way to save this but good for now
         @location.saved_at = Time.zone.now
         if @location.save
+          @device ||= Device.find_or_create_by(idfa: params[:idfa])
+          @device.save
           location_ids << @location.unique_id
         else
           render json: {

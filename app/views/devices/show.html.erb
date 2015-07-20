@@ -1,0 +1,30 @@
+<h1>All the locations we have for device with idfa: <%= @device.idfa %></h1>
+<p>We have <%= @locations.count %> locations</p>
+
+<div id="map-canvas">
+
+</div>
+<% @locations.each do |location| %>
+<h2><%= location.latitude %>,<%= location.longitude %></h2>
+<% end %>
+<script>
+  function initialize() {
+    var mapCanvas = document.getElementById('map-canvas');
+    var mapOptions = {
+      center: new google.maps.LatLng(37.810000, -122.477450),
+      zoom: 10,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var map = new google.maps.Map(mapCanvas, mapOptions);
+    <% @locations.each do |location| %>
+      var myLatlng = new google.maps.LatLng(<%= location.latitude %>, <%= location.longitude %>);
+      var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        title: "Hello world"
+      });
+    <% end %>
+ } 
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>

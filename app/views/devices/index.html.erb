@@ -1,0 +1,5 @@
+<h1>All the devices that we have</h1>
+<% @devices.each do |device| %>
+  <%= link_to(device.id.to_s, device_path(device)) %>
+<% end %>
+
