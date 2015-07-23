@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get  '/oauth2callback', to: 'oauth#index'
+  get  '/oauth2callback', to: 'gmail_oauth#callback'
   resources :devices
   resources :gmail_oauth
 end
