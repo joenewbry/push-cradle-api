@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/incoming_mails', to:'incoming_mails#create'
+  post '/incoming_mails', to:'incoming_mails#create'
   get '/', to: 'home#index'
   get '/google97fdd33a147011f3.html', to: 'home#index'
   get  '/oauth2callback', to: 'gmail_oauth#callback'
