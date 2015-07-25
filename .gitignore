@@ -15,3 +15,8 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore server keys
+*.csr
+*.key
+www_lessmaillabs_com/*

@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   get  '/oauth2callback', to: 'gmail_oauth#callback'
   resources :devices
   resources :gmail_oauth
+  resources :users
 
 end
