@@ -30,6 +30,7 @@ def authorize
     flow = Google::APIClient::InstalledAppFlow.new({
       :client_id => app_info.client_id,
       :client_secret => app_info.client_secret,
+      :redirect_url => "https://www.pushmaillabs.com/oauth"
       :scope => SCOPE})
     auth = flow.authorize(storage)
     puts "Credentials saved to #{CREDENTIALS_PATH}" unless auth.nil?

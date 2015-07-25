@@ -1,28 +1,27 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Docs for routes:
 
-Things you may want to cover:
+'/' : home_controller#index
+-- Displays home page
 
-* Ruby version
+'/about' : home_controller#about
+-- Displays about page
 
-* System dependencies
+'/gmail_oauth' : gmail_oauth_controller
+-- Display user auth
 
-* Configuration
+'/oauth2callback' : gmail_oauth_controller#callback
+-- grabs token from successful oauth redirect
 
-* Database creation
+'/gmail_push_subscribe' :
 
-* Database initialization
+'/user/basic_info' : user_controller#info
+-- requests phone number and company name
 
-* How to run the test suite
+'/user/configure_prefences' : users_controller#preferences
+-- displays emails or something
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+'/dash/<hash>' : email_dashboard_controller#index
+-- displays all emails with newest on top
+-- on reload gets new emails
