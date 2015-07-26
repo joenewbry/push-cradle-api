@@ -13,11 +13,9 @@ class GmailOauthController < ApplicationController
       redirect_to action: "callback"
     else
       client_opts = JSON.parse(session[:credentials])
-      byebug
       client_opts["redirect_uri"] = Addressable::URI.new(client_opts["redirect_uri"]).path
       auth_client = Signet::OAuth2::Client.new(client_opts)
       service = Google::Apis::GmailV1::GmailService.new
-      byebug
       service.list_user_messages(auth_client.access_token)
     end
     
@@ -46,7 +44,6 @@ class GmailOauthController < ApplicationController
     else
       auth_client.code = params[:code] 
       auth_client.fetch_access_token!
-      byebug
       session[:credentials] = auth_client.to_json
       redirect_to action: "index"
     end
