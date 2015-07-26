@@ -40,7 +40,6 @@ class GmailOauthController < ApplicationController
 
     # Exchange token
     else
-      byebug
       auth_client.code = params[:code] 
       auth_client.fetch_access_token!
       session[:credentials] = auth_client.to_json
