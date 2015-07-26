@@ -11,7 +11,9 @@ gem 'turbolinks'
 gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'google-api-client', '0.9.pre2'
 
+
 group :development, :test do
+  gem 'certified'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '>=2.14'
   gem 'byebug'
