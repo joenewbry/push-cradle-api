@@ -1,5 +1,6 @@
 require 'google/api_client/client_secrets'
 require 'google/apis/pubsub_v1beta2.rb'
+require 'google/apis/gmail_v1.rb'
 
 class GmailOauthController < ApplicationController
 
@@ -7,9 +8,18 @@ class GmailOauthController < ApplicationController
   # then we get use that to get an access token
   # then we can make requests
   def index
+    if not session[:credentials]
+      redirect_to action: "callback"
+    else
+      client_opts = JSON.parse(session[:credentials])
+      auth_client = Signet::OAuth2::Client.new(client_opts)
+      service = Google::Apis::GmailV1::GmailService.new
+      service.list_user_messages
+    end
+    
+  end
 
-    if not cookies.encrypted[:gmail_oauth_token]
-
+  def callback
     client_secrets = nil
     if Rails.env.development?
       client_secrets = Google::APIClient::ClientSecrets.load('local_client_secret.json')
@@ -18,46 +28,24 @@ class GmailOauthController < ApplicationController
       client_secrets = Google::APIClient::ClientSecrets.load('client_secret.json')
     end
 
-      auth_client = client_secrets.to_authorization
-      auth_client.update!(
-        :scope => 'https://www.googleapis.com/auth/gmail.readonly',
-        :redirect_uri => url_for(controller: 'gmail_oauth', action: 'callback'))
+    auth_client = client_secrets.to_authorization
+    auth_client.update!(
+      :scope => 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/pubsub',
+      :redirect_uri => url_for(controller: 'gmail_oauth', action: 'callback'))
 
-      auth_uri = auth_client.authorization_uri.to_s
-      redirect_to auth_uri
-    else 
-      
-      client_secrets = nil
-      if Rails.env.development?
-        client_secrets = Google::APIClient::ClientSecrets.load('client_secret.json')
-      end
-
-      if Rails.env.production?
-        client_secrets = Google::APIClient::ClientSecrets.load('client_secret.json')
-      end
-
-      auth_client = client_secrets.to_authorization
-      auth_client.update!(
-        :scope => "https://www.googleapis.com/auth/pubsub",
-        :redirect_uri => url_for(controller: 'gmail_oauth', action: 'callback')
-      )
-
+    # If no token we should grab token
+    if not params[:code]
       auth_uri = auth_client.authorization_uri.to_s
       redirect_to auth_uri
 
+    # Exchange token
+    else
+      byebug
+      auth_client.code = params[:code] 
+      auth_client.fetch_access_token!
+      session[:credentials] = auth_client.to_json
+      redirect_to action: "index"
     end
-    @auth_token = cookies.encrypted[:gmail_oauth_token]
   end
 
-  def callback
-    #An error response:
-
-    #  https://oauth2-login-demo.appspot.com/auth?error=access_denied
-    #An authorization code response:
-
-      #https://oauth2-login-demo.appspot.com/auth?code=4/P7q7W91a-oMsCeLvIaQm6bTrgtp70
-    byebug
-    cookies.encrypted[:gmail_oauth_token] = params[:code]
-    redirect_to action: "index"
-  end
 end

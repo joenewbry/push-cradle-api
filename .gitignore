@@ -20,3 +20,6 @@
 *.csr
 *.key
 www_lessmaillabs_com/*
+
+# Not sure why path is here
+/path
