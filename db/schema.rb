@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150718211527) do
+ActiveRecord::Schema.define(version: 20150726154520) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "devices", force: :cascade do |t|
     t.string   "idfa"
@@ -30,6 +33,14 @@ ActiveRecord::Schema.define(version: 20150718211527) do
     t.date     "saved_at"
     t.string   "unique_id"
     t.string   "idfa"
+  end
+
+  create_table "tokens", force: :cascade do |t|
+    t.string   "access_token"
+    t.string   "refresh_token"
+    t.datetime "expires_at"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
 end

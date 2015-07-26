@@ -9,11 +9,13 @@ class GmailOauthController < ApplicationController
   # then we get use that to get an access token
   # then we can make requests
   def index
+    byebug
     if not session[:credentials]
       redirect_to action: "callback"
     else
       client_opts = JSON.parse(session[:credentials])
-      client_opts["redirect_uri"] = Addressable::URI.new(client_opts["redirect_uri"]).path
+      client_opts.symbolize_keys!
+      client_opts[:redirect_uri] = Addressable::URI.new(client_opts[:redirect_uri].symbolize_keys!)
       auth_client = Signet::OAuth2::Client.new(client_opts)
       service = Google::Apis::GmailV1::GmailService.new
       service.list_user_messages(auth_client.access_token)
@@ -31,6 +33,7 @@ class GmailOauthController < ApplicationController
     end
 
     auth_client = client_secrets.to_authorization
+    byebug
     auth_client.update!(
       :scope => 'https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/pubsub https://www.googleapis.com/auth/drive.metadata.readonly',
       :redirect_uri => url_for(controller: 'gmail_oauth', action: 'callback'))
@@ -44,6 +47,7 @@ class GmailOauthController < ApplicationController
     else
       auth_client.code = params[:code] 
       auth_client.fetch_access_token!
+      byebug
       session[:credentials] = auth_client.to_json
       redirect_to action: "index"
     end
