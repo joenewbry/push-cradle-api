@@ -1,2 +1,16 @@
-<h1>Home Page<h1>
-<%= button_to "Start Free Week", users_path %>
+<h1>Home Page: Maybe use below to add correct heading to each thing?<h1>
+<h1>http://guides.rubyonrails.org/i18n.html#translations-for-active-record-models</h1>
+
+<%= form_for @user do |f| %> 
+  <% f.label :name %>
+  <% f.text_field :name%></br>
+
+  <% f.label :email %>
+  <% f.email_field :email %>
+
+  <% f.label :phone %>
+  <% f.phone_field :phone %></br>
+
+  <%= f.submit %>
+  
+<% end %> 

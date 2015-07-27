@@ -2,6 +2,7 @@ require 'json'
 require 'net/http'
 
 class Token < ActiveRecord::Base
+  has_one :user
   def to_params
       {'refresh_token' => refresh_token,
        'client_id' => Rails.application.secrets.client_id,
@@ -10,7 +11,6 @@ class Token < ActiveRecord::Base
   end
 
   def request_token_from_google
-    byebug
     #RestClient.post "https://www.googleapis.com/", self.to_params
     # Initialize HTTP library
     url = URI.parse('https://www.googleapis.com')
@@ -41,6 +41,7 @@ class Token < ActiveRecord::Base
   def refresh!
     response = request_token_from_google
     data = JSON.parse(response.body)
+    byebug
     update_attributes(
     access_token: data['access_token'],
     expires_at: Time.now + (data['expires_in'].to_i).seconds)

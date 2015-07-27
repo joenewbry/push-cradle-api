@@ -9,10 +9,12 @@ gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'sdoc', '~> 0.4.0', group: :doc
-gem 'google-api-client', '0.9.pre2'
+gem 'google-api-client', '0.9.pre2', require: "google/api_client/auth/installed_app"
 gem 'omniauth', '~> 1.2.2'
 gem 'omniauth-google-oauth2'
 gem 'rest-client'
+gem 'launchy'
+gem 'googleauth'
 
 
 group :development, :test do

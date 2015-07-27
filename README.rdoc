@@ -25,3 +25,6 @@ Docs for routes:
 '/dash/<hash>' : email_dashboard_controller#index
 -- displays all emails with newest on top
 -- on reload gets new emails
+
+// setup postgres
+create role "push-cradle-api" with createdb login password 'contextual-push';
