@@ -1,0 +1,14 @@
+<h1>What's youre name</h1>
+
+<%= form_for @user do |f| %>
+  <%= f.label "What do your friends call you?" %>
+  <%= f.text_field :name %><br />
+
+  <%= f.label "What email should we monitor?" %>
+  <% f.text_field :email %> <br />
+
+  <%= f.label "What number should we text when you have an important email?" %>
+  <%= f.text_field :phone %><br />
+
+  <%= f.submit %>
+<% end %>
