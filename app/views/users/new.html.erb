@@ -1,11 +1,15 @@
-<h1>What's youre name</h1>
+
+<% provide(:title, "Signup for Less Mail") #used in application.html %>
+
+<h1> No email notifications. No missed email. <br /> 
+    Get a text when an email message needs your attention. </h1>
 
 <%= form_for @user do |f| %>
   <%= f.label "What do your friends call you?" %>
   <%= f.text_field :name %><br />
 
   <%= f.label "What email should we monitor?" %>
-  <% f.text_field :email %> <br />
+  <%= f.text_field :email %> <br />
 
   <%= f.label "What number should we text when you have an important email?" %>
   <%= f.text_field :phone %><br />

@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>PushCradleApi</title>
+  <title><%= yield(:title) %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?sensor=false" %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
-<%= yield %>
+<div class="container">
+		<div class="row" id="header">
+
+			<h1 id="header_text"> Less Mail Labs </h1>
+		</div>
+
+
+	<%= yield %>
+
+	<div id="footer">
+		<p> ©Less Mail Labs 2015</p>
+	</div>
+</div>
 
 </body>
 </html>

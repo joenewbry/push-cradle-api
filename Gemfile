@@ -15,6 +15,7 @@ gem 'omniauth-google-oauth2'
 gem 'rest-client'
 gem 'launchy'
 gem 'googleauth'
+gem 'bootstrap-sass'
 
 
 group :development, :test do
