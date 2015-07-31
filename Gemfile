@@ -16,6 +16,7 @@ gem 'rest-client'
 gem 'launchy'
 gem 'googleauth'
 gem 'bootstrap-sass'
+gem 'bootstrap_form'
 
 
 group :development, :test do

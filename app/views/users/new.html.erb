@@ -1,18 +1,21 @@
 
 <% provide(:title, "Signup for Less Mail") #used in application.html %>
 
-<h1> No email notifications. No missed email. <br /> 
+<h1 id="notification_text"> No email notifications. No missed email. <br /> 
     Get a text when an email message needs your attention. </h1>
 
-<%= form_for @user do |f| %>
-  <%= f.label "What do your friends call you?" %>
-  <%= f.text_field :name %><br />
+<!-- on md to lrg devices restrict the input size so the input-->
 
-  <%= f.label "What email should we monitor?" %>
-  <%= f.text_field :email %> <br />
+<div id="buttons-container" class="row"> 
+	<div class="col-md-3"> </div>
+	<div class="col-md-6"> 
+		<%= bootstrap_form_for @user do |f| %>
+		<%= f.text_field :name, label: "What do your friends call you?" %><br />
+		<%= f.text_field :email, label: "What email should we monitor?"%> <br />
+		<%= f.text_field :phone, label:  "What number should we text when you have an important email?"%><br />
 
-  <%= f.label "What number should we text when you have an important email?" %>
-  <%= f.text_field :phone %><br />
-
-  <%= f.submit %>
-<% end %>
+		<%= f.submit "Start Your Free Trial", class: "btn btn-success center-block" %>
+		<% end %>
+	</div>
+	<div class="col-md-3"> </div>
+</div>
